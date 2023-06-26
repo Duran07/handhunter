@@ -5,7 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Search for job</h1>
+    <h1>Информация о сотруднике</h1>
+    <ul>
+        <ol>Login: {{ worker.user.username }}</ol>
+        <ol>Имя:{{ worker.specialization }}</ol>
+        <ol>Ожидаемая зарплата:{{ an_expect_salary }}</ol>
+        <ol>Открыть для предложения:{{ is_searching }}</ol>
+    </ul>
 
+    <h2>Интересующие вакансии</h2>
+    {% for v in worker.vacancy_set.all %}
+        <div>{{ v.tittle }}</div>
+    {% endfor %}
 </body>
 </html>

@@ -26,7 +26,6 @@ def vacancy_list(request):
     return render(request, 'vacancies.html', context)
 
 
-def company(request):
-    return render(request=request, template_name='something')
+
 
 

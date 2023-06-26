@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core.views import *
-from worker.views import worker
+from worker.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +25,8 @@ urlpatterns = [
     path('about/', about_us),
     path('contacts/', information),
     path('vacancies/', vacancy_list),
-    path('worker/', worker),
+    path('workers/', worker),
+    path('worker/<int:id>/', worker_info),
 ]
 
 

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Search for job</h1>
+    <hr>
+    {% for i in workers %}
+        <div>{{ i.name }} {{ i.salary }} </div>
+    {% endfor %}
+</body>
+</html>
