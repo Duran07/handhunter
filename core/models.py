@@ -14,9 +14,25 @@ class Vacancy(models.Model):
         to=Worker,
         blank=True,
     )
+    category = models.ForeignKey(
+        to="Category",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name='category'
+    )
 
     def __str__(self):
         return self.tittle
 
+    class Meta:
+        verbose_name = 'Вакансии'
+        verbose_name_plural = 'Вакансия'
+        ordering = ['salary']
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=55)
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name

@@ -26,6 +26,18 @@ def vacancy_list(request):
     return render(request, 'vacancies.html', context)
 
 
+def vacancy_detail(request, id):
+    vacancy_object = Vacancy.objects.get(id=id)
+    candidates = vacancy_object.candidate.all()
+    context = {
+        'vacancy': vacancy_object,
+        'candidates': candidates,
+    }
+    return render(request, 'vacancy_detail.html', context)
+
+
+
+
 
 
 

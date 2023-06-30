@@ -35,13 +35,16 @@ class Comment(models.Model):
 
 
 class Resume(models.Model):
-    name = models.CharField(max_length=64, verbose_name="ФИО")
-    specialization = models.CharField(max_length=64, verbose_name="Специализация")
-    an_expect_salary = models.IntegerField(verbose_name="ожидаемая зарплата")
-    experience = models.TextField(verbose_name="Опыт работы")
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
+    worker = models.ForeignKey(
+        to=Worker,
+        on_delete=models.CASCADE,
+        related_name='resume'
+    )
+    title = models.CharField(max_length=55)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
