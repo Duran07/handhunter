@@ -1,5 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import Vacancy
+from django.contrib.auth.models import User
+from .forms import *
 
 
 def homepage(request):
@@ -33,11 +35,70 @@ def vacancy_detail(request, id):
         'vacancy': vacancy_object,
         'candidates': candidates,
     }
-    return render(request, 'vacancy_detail.html', context)
+    return render(request, 'vacancy/vacancy_page.html', context)
 
 
+def search(request):
+    word = request.GET["keyword"]
+    vacancy_list = Vacancy.objects.filter(title__contains=word)
+    context = {"vacancies": vacancy_list}
+    return render(request, 'vacancies.html', context)
 
 
+def reg_view(request):
+    if request.method == "POST":
+        user = User(
+            username=request.POST["username"]
+        )
+        user.save()
+        user.set_password(request.POST["password"])
+        user.save()
+        return HttpResponse("Готово")
+
+    return render(
+        request,
+        "auth/registr.html"
+    )
 
 
+def vacancy_add(request):
+    if request.method == "POST":
+        new_vacancy = Vacancy(
+            title=request.POST["title"],
+            salary=int(request.POST["salary"]),
+            description=request.POST["description"],
+            email=request.POST["email"],
+            contacts=request.POST["contacts"],
+        )
+        new_vacancy.save()
+        return redirect(f'/vacancy/{new_vacancy.id}/')
+    return render(request, 'vacancy/vacancy_form.html')
 
+
+def vacancy_edit(request, id):
+    vacancy = Vacancy.objects.get(id=id)
+
+    if request.method == "GET":
+        form = VacancyEditForm(instance=vacancy)
+        return render(request, "vacancy/vacancy_edit_form.html", {"form": form})
+
+    elif request.method == "POST":
+        object_vac = VacancyEditForm(data=request.POST, instance=vacancy)
+        if object_vac.is_valid():
+            vacancies = object_vac.save()
+            return redirect(vacancy_list, id=vacancies.id)
+        return HttpResponse("Форма не валидна")
+
+
+def vacancy_add_via_django_form(request):
+    if request.method == "POST":
+        form = VacancyForm(request.POST)
+        if form.is_valid():
+            new_vacancy = form.save()
+            return redirect(f'/vacancy/{new_vacancy.id}/')
+    vacancy_form = VacancyForm()
+    return render(
+        request,
+        'vacancy/vacancy_django_form.html',
+        {"vacancy_form": vacancy_form}
+    )

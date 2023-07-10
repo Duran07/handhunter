@@ -18,20 +18,36 @@ from django.contrib import admin
 from django.urls import path
 from core.views import *
 from worker.views import *
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage),
+    path('', homepage, name='home'),
     path('about/', about_us),
     path('contacts/', information),
     path('vacancies/', vacancy_list),
+    path('vacancy/<int:id>/', vacancy_detail, name='vacancy-info'),
+    path('vacancy-edit/<int:id>/', vacancy_edit, name='vacancy-edit'),
+    path('add-vacancy/', vacancy_add),
+    path('add-vacancy-df/', vacancy_add_via_django_form),
     path('workers/', worker),
     path('worker/<int:id>/', worker_info),
     path("resume-list/", resume_list),
     path("resume-info/<int:id>/", resume_info),
+    path("resume-edit/<int:id>/", resume_edit, name="resume-edit"),
     path("my-resume/", my_resume, name='my-resume'),
-    path('vacancy/<int:id>/', vacancy_detail, name='vacancy_detail'),
-]
+    path("create-company/", create_company),
+    path('company-list/', company_list),
+    path('company-edit/<int:id>/', company_edit),
+    path('search/', search, name='search'),
+    path('add-resume/', add_resume, name='add-resume'),
+    path('reg_view/', reg_view, name='reg _view'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 

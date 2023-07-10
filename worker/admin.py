@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Worker)
 admin.site.register(Comment)
 admin.site.register(Resume)
+admin.site.register(Company)

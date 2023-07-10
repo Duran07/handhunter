@@ -5,10 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Search for job</h1>
+    <h1>Сотрудники</h1>
     <hr>
     {% for i in workers %}
-        <div>{{ i.name }} {{ i.salary }} </div>
+        <div>{{ i.name }} - {{ i.an_expect_salary }} </div>
     {% endfor %}
 </body>
 </html>
