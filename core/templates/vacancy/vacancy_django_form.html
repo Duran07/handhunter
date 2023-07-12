@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<h1>Заполните вашу вакансию</h1>
+<h2>Компания handhunter, вас приветс</h2>
   <form method="POST">
     {% csrf_token %}
     {{ vacancy_form.as_p }}
