@@ -22,6 +22,19 @@ def information(request):
 
 
 def vacancy_list(request):
+    min_experience = request.GET.get('min_experience')
+    max_experience = request.GET.get('max_experience')
+    employment_type = request.GET.get('employment_type')
+    skill_query = request.GET.get('skills')
+    vacancies = Vacancy.objects.all()
+    if min_experience:
+        vacancies = vacancies.filter(EXPERIENCE__gte=min_experience)
+    if max_experience:
+        vacancies = vacancies.filter(EXPERIENCE__lte=max_experience)
+    if employment_type:
+        vacancies = vacancies.filter(job_time=employment_type)
+    if skill_query:
+        vacancies = vacancies.filter(skills__name__icontains=skill_query)
     vacancies = Vacancy.objects.all()
     context = {"vacancies": vacancies}
     context["example"] = "hello world"
