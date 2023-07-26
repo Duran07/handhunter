@@ -1,3 +1,13 @@
 h1, h2 {
     color: #016878;
 }
+
+.homepage {
+    background:
+            linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
+            url("banner.jpeg")
+            center / cover;
+    padding: 10px;
+    height: 80vh;
+    color: white;
+}

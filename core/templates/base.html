@@ -10,10 +10,8 @@
         {% endblock %}
     </title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'my_style.css' %}">
 </head>
 <body>
@@ -29,17 +27,20 @@
               <a class="nav-link" href="/">Домой</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/workers">Кандидаты</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Вакансии</a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/vacancies">Список вакансий</a></li>
-                <li><a class="dropdown-item" href="/add-vacancy">Добавить вакансию</a></li>
-                <li><a class="dropdown-item" href="/add-vacancy-df">Добавить вакансию (dj form)</a></li>
+                <li><a class="dropdown-item" href="/add-vacancy-df">Добавить вакансию</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Рекрутер</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/recruit/list">Список рекрутаров</a></li>
+                <li><a class="dropdown-item" href="/recruit/create">Добавить рекрутера</a></li>
               </ul>
             </li>
             <li class="nav-item">
@@ -57,11 +58,15 @@
               </li>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
-              </li>
-              <li class="nav-item">
                 Пожалуйста, авторизуйтесь
               </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Компания</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/company-list">Список компании</a></li>
+                <li><a class="dropdown-item" href="/create-company">Добавить компанию</a></li>
+              </ul>
+            </li>
             {% endif %}
           </ul>
         </div>

@@ -17,3 +17,5 @@ class VacancyEditForm(forms.ModelForm):
         fields = [
             'tittle', 'contacts', 'email'
         ]
+
+

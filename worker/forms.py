@@ -12,10 +12,10 @@ class ResumeCreateForm(forms.ModelForm):
 class ResumeEditForm(forms.ModelForm):
     class Meta:
         model = Resume
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'profile_photo']
 
 
 class CompanyCreateForm(forms.ModelForm):
     class Meta:
         model = Company
-        fields = ['name', 'workers']
+        fields = '__all__'

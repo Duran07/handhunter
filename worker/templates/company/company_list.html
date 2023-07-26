@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Company List</h1>
 
-    {% for r in companies %}
+    {% for r in context %}
         <div>{{ r.name }}</div>
     {% endfor %}
 

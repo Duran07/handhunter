@@ -1,16 +1,43 @@
 {% extends 'base.html' %}
 
-{% block my_title %}
-    Вакансии мечты
-{% endblock %}
-
 {% block content %}
-
-    <h1>Вакансии</h1>
-    {{ example }}
-    <hr>
-    {% for v in vacancies %}
-        <div>{{ v.tittle }} - {{ v.salary }}</div>
-    {% endfor %}
+    <title>Vacancy List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <form method="get">
+                    <div class="mb-3">
+                        <label for="min_experience" class="form-label">Минимальный опыт работы:</label>
+                        <input type="number" class="form-control" id="min_experience" name="min_experience">
+                    </div>
+                    <div class="mb-3">
+                        <label for="max_experience" class="form-label">Максимальный опыт работы:</label>
+                        <input type="number" class="form-control" id="max_experience" name="max_experience">
+                    </div>
+                    <div class="mb-3">
+                        <label for="employment_type" class="form-label">Тип занятости:</label>
+                        <select class="form-select" id="employment_type" name="employment_type">
+                            <option value="">Все</option>
+                            <option value="full-time">Полный рабочий день</option>
+                            <option value="part-time">Частичная занятость</option>
+                            <option value="piecework">Сдельная работа</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Применить фильтр</button>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <ul class="list-group">
+                    {% for vacancy in vacancies %}
+                        <li class="list-group-item">{{ vacancy.title }} - {{ vacancy.experience }} лет опыта</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
 
 {% endblock %}

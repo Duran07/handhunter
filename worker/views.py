@@ -17,14 +17,14 @@ def worker_info(request, id):
 
 def resume_list(request):
     resumes = Resume.objects.all()
-    return render(request, 'resume/resume_list.html', {"resumes": resumes})
+    context = {"resumes": resumes}
+    return render(request, 'resume/resume_list.html', context)
 
 
 def resume_info(request, id):
     resume_object = Resume.objects.get(id=id)
-    context = {'resume': resume_object}
 
-    return render(request, 'resume/resume_detail.html')
+    return render(request, 'resume/resume_detail.html', {'resume': resume_object})
 
 
 def resume_edit(request, id):
@@ -35,7 +35,7 @@ def resume_edit(request, id):
         return render(request, "resume/resume_edit.html", {"form": form})
 
     elif request.method == "POST":
-        form = ResumeEditForm(data=request.POST, instance=resume_object)
+        form = ResumeEditForm(data=request.POST, instance=resume_object, files=request.FILES)
         if form.is_valid():
             obj = form.save()
             return redirect(resume_info, id=obj.id)
@@ -69,16 +69,24 @@ def create_company(request):
     if request.method == "POST":
         form = CompanyCreateForm(request.POST)
         if form.is_valid():
-            new_company = form.save()
-            return redirect(f"/ /")
+            new_company = form.save(commit=False)
+            new_company.worker = request.user.worker
+            new_company.save()
+            return redirect(f"/company-info/{new_company.id}")
     cc_form = CompanyCreateForm()
     return render(request, 'company/create_form.html', {"cc_form": cc_form})
 
 
+def company_info(request, id):
+    company_obj = Company.objects.get(id=id)
+    context = {"company": company_obj}
+    return render(request, 'company/company_info.html', context)
+
 
 def company_list(request):
     companies = Company.objects.all()
-    return render(request, 'company/company_list.html', {"companies": companies})
+    context = {"companies": companies}
+    return render(request, 'company/company_list.html')
 
 
 def company_edit(request, id):
