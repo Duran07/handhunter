@@ -44,6 +44,7 @@ urlpatterns = [
     path('company-edit/<int:id>/', company_edit),
     path('search/', search, name='search'),
     path('add-resume/', add_resume, name='add-resume'),
+    path('news/', include('news.urls')),
     path('recruit/', include('recruit.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

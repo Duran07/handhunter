@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Список новостей</h1>
+    {% for c in news_object %}
+        <div>
+            <a href="{% url 'news-detail' c.pk %}">{{ c.title }}</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}
